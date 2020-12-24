@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.3
 // Package.swift
 //
 // Copyright (c) 2017 Alexander Taraymovich <taraymovich@me.com>
@@ -10,6 +10,7 @@ import PackageDescription
 
 let package = Package(
     name: "LASwift",
+    platforms: [.iOS(.v13),.macOS(.v10_15)],
     products: [
         .library(name: "LASwift", targets: ["LASwift"])
     ],
