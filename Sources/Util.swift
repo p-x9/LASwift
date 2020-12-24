@@ -33,18 +33,36 @@ func vectorScalarOperation(_ op: VectorScalarOperation, _ a: Vector, _ b: Double
 typealias UnaryVectorOperation = ((_: UnsafePointer<Double>, _: vDSP_Stride, _: UnsafeMutablePointer<Double>, _: vDSP_Stride, _: vDSP_Length) -> ())
 
 func unaryVectorOperation(_ op: UnaryVectorOperation, _ a: Vector) -> Vector {
-    var c = Vector(repeating: 0.0, count: a.count)
-    op(a, 1, &c, 1, vDSP_Length(a.count))
-    return c
+    if a.count > 400{
+        let c = Vector(unsafeUninitializedCapacity: a.count, initializingWith: {buffer,count in
+            op(a, 1, buffer.baseAddress!, 1, vDSP_Length(a.count))
+            count = a.count
+        })
+        return c
+    }
+    else{
+        var c = Vector(repeating: 0.0, count: a.count)
+        op(a, 1, &c, 1, vDSP_Length(a.count))
+        return c
+    }
 }
 
 typealias VectorFunction = ((_: UnsafeMutablePointer<Double>, _: UnsafePointer<Double>, _: UnsafePointer<Int32>) -> ())
 
 func vectorFunction(_ op: VectorFunction, _ a: Vector) -> Vector {
-    var c = Vector(repeating: 0.0, count: a.count)
     var l = Int32(a.count)
-    op(&c, a, &l)
-    return c
+    if a.count > 400{
+        let c = Vector(unsafeUninitializedCapacity: a.count, initializingWith: {buffer,count in
+            op(buffer.baseAddress!, a, &l)
+            count = a.count
+        })
+        return c
+    }
+    else{
+        var c = Vector(repeating: 0.0, count: a.count)
+        op(&c, a, &l)
+        return c
+    }
 }
 
 typealias AggVectorFunction = ((_: UnsafePointer<Double>, _: vDSP_Stride, _: UnsafeMutablePointer<Double>, _: vDSP_Length) -> ())

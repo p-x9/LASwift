@@ -20,7 +20,15 @@ public typealias Vector = [Double]
 ///    - count: number of elements
 /// - Returns: zeros vector of specified size
 public func zeros(_ count: Int) -> Vector {
-    return Vector(repeating: 0.0, count: count)
+    if count > 400{
+        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
+            vDSP.clear(&buffer)
+            initializedCount = count
+        })
+    }
+    else{
+        return Vector(repeating: 0.0, count: count)
+    }
 }
 
 /// Create a vector of ones.
@@ -29,7 +37,33 @@ public func zeros(_ count: Int) -> Vector {
 ///    - count: number of elements
 /// - Returns: ones vector of specified size
 public func ones(_ count: Int) -> Vector {
-    return Vector(repeating: 1.0, count: count)
+    if count > 400{
+        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
+            vDSP.fill(&buffer, with: 1)
+            initializedCount = count
+        })
+    }
+    else{
+        return Vector(repeating: 1.0, count: count)
+    }
+}
+
+/// Create a vector of values.
+///
+/// - Parameters:
+///    - count: number of elements
+///    - value: repeating value
+/// - Returns: ones vector of specified size
+public func fill(_ count: Int,value:Double) -> Vector {
+    if count > 400{
+        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
+            vDSP.fill(&buffer, with: value)
+            initializedCount = count
+        })
+    }
+    else{
+        return Vector(repeating: value, count: count)
+    }
 }
 
 /// Create a vector of uniformly distributed on [0, 1) interval random values.
@@ -41,7 +75,7 @@ public func rand(_ count: Int) -> Vector {
     var iDist = __CLPK_integer(1)
     var iSeed = (0..<4).map { _ in __CLPK_integer(Random.within(0.0...4095.0)) }
     var n = __CLPK_integer(count)
-    var x = Vector(repeating: 0.0, count: count)
+    var x = zeros(count)//Vector(repeating: 0.0, count: count)
     dlarnv_(&iDist, &iSeed, &n, &x)
     return x
 }
@@ -55,9 +89,18 @@ public func randn(_ count: Int) -> Vector {
     var iDist = __CLPK_integer(3)
     var iSeed = (0..<4).map { _ in __CLPK_integer(Random.within(0.0...4095.0)) }
     var n = __CLPK_integer(count)
-    var x = Vector(repeating: 0.0, count: count)
-    dlarnv_(&iDist, &iSeed, &n, &x)
-    return x
+    
+    if count > 400{
+        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
+            dlarnv_(&iDist, &iSeed, &n, buffer.baseAddress!)
+            initializedCount = count
+        })
+    }
+    else{
+        var x = Vector(repeating: 0.0, count: count)
+        dlarnv_(&iDist, &iSeed, &n, &x)
+        return x
+    }
 }
 
 // MARK: - Vector comparison

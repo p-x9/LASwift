@@ -63,7 +63,7 @@ public func randn(_ rows: Int, _ cols: Int) -> Matrix {
 public func eye(_ rows: Int, _ cols: Int) -> Matrix {
     precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix((0..<rows).map { (i: Int) -> Vector in
-        var row = Vector(repeating: 0.0, count: cols)
+        var row = zeros(cols)//Vector(repeating: 0.0, count: cols)
         if (i < cols) {
             row[i] = 1.0
         }
@@ -115,7 +115,7 @@ public func diag(_ rows: Int, _ cols: Int, _ v: Matrix) -> Matrix {
 public func diag(_ rows: Int, _ cols: Int, _ v: Vector) -> Matrix {
     precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix((0..<rows).map { (i: Int) -> Vector in
-        var row = Vector(repeating: 0.0, count: cols)
+        var row = zeros(cols)//Vector(repeating: 0.0, count: cols)
         if (i < cols) {
             row[i] = v[i]
         }
@@ -152,7 +152,7 @@ public class Matrix {
     
     public init(_ r: Int, _ c: Int, _ value: Double = 0.0) {
         precondition(r > 0 && c > 0, "Matrix dimensions must be positive")
-        flat = Vector(repeating: value, count: r * c)
+        flat = fill(r * c, value: value)//Vector(repeating: value, count: r * c)
         _rows = r
         _cols = c
     }
@@ -256,7 +256,7 @@ extension Matrix {
     public subscript(col col: Int) -> Vector {
         get {
             precondition(col < cols, "Invalid index")
-            var result = Vector(repeating: 0.0, count: rows)
+            var result = zeros(rows)//Vector(repeating: 0.0, count: rows)
             _ = (0..<rows).map { i -> () in
                 let index = i * cols + col
                 result[i] = flat[index]
@@ -506,7 +506,7 @@ public func append(_ m: Matrix, row: Vector) -> Matrix {
 ///    - row: row value to append
 /// - Returns: new matrix with appended row
 public func append(_ m: Matrix, row: Double) -> Matrix {
-    let r = Vector(repeating: row, count: m.cols)
+    let r = fill(m.cols, value: row)//Vector(repeating: row, count: m.cols)
     return append(m, row: r)
 }
 
@@ -589,7 +589,7 @@ public func prepend(_ m: Matrix, row: Vector) -> Matrix {
 ///    - row: row value to prepend
 /// - Returns: new matrix with prepended row
 public func prepend(_ m: Matrix, row: Double) -> Matrix {
-    let r = Vector(repeating: row, count: m.cols)
+    let r = fill(m.cols, value: row)//Vector(repeating: row, count: m.cols)
     return prepend(m, row: r)
 }
 
@@ -720,7 +720,7 @@ public func append(_ m: Matrix, col: Vector) -> Matrix {
 ///    - col: column value to append
 /// - Returns: new matrix with appended column
 public func append(_ m: Matrix, col: Double) -> Matrix {
-    let c = Vector(repeating: col, count: m.rows)
+    let c = fill(m.rows, value: col)//Vector(repeating: col, count: m.rows)
     return append(m, col: c)
 }
 
@@ -803,7 +803,7 @@ public func prepend(_ m: Matrix, col: Vector) -> Matrix {
 ///    - col: column value to prepend
 /// - Returns: new matrix with prepended column
 public func prepend(_ m: Matrix, col: Double) -> Matrix {
-    let c = Vector(repeating: col, count: m.rows)
+    let c = fill(m.rows, value: col)//Vector(repeating: col, count: m.rows)
     return prepend(m, col: c)
 }
 

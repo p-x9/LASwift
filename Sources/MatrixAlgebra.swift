@@ -164,7 +164,7 @@ public func inv(_ A: Matrix) -> Matrix {
     dgetri_(&N, &(B.flat), &LDA, &pivot, &wkOpt, &lWork, &error)
     
     lWork = __CLPK_integer(wkOpt)
-    var work = Vector(repeating: 0.0, count: Int(lWork))
+    var work = zeros(Int(lWork))//Vector(repeating: 0.0, count: Int(lWork))
     
     /* Compute inversed matrix */
     
@@ -200,9 +200,9 @@ public func eig(_ A: Matrix) -> (V: Matrix, D: Matrix) {
     var error = __CLPK_integer(0)
     
     // Real parts of eigenvalues
-    var wr = Vector(repeating: 0.0, count: Int(N))
+    var wr = zeros(Int(N))//Vector(repeating: 0.0, count: Int(N))
     // Imaginary parts of eigenvalues
-    var wi = Vector(repeating: 0.0, count: Int(N))
+    var wi = zeros(Int(N))//Vector(repeating: 0.0, count: Int(N))
     // Left eigenvectors
     var vl = [__CLPK_doublereal](repeating: 0.0, count: Int(N * N))
     // Right eigenvectors
@@ -216,7 +216,7 @@ public func eig(_ A: Matrix) -> (V: Matrix, D: Matrix) {
     dgeev_(&jobvl, &jobvr, &N, &V.flat, &LDA, &wr, &wi, &vl, &ldvl, &vr, &ldvr, &wkOpt, &lWork, &error)
     
     lWork = __CLPK_integer(wkOpt)
-    var work = Vector(repeating: 0.0, count: Int(lWork))
+    var work = zeros(Int(lWork))//Vector(repeating: 0.0, count: Int(lWork))
     
     /* Compute eigen vectors */
     
@@ -251,7 +251,7 @@ public func svd(_ A: Matrix) -> (U: Matrix, S: Matrix, V: Matrix) {
     
     var error = __CLPK_integer(0)
     
-    var s = Vector(repeating: 0.0, count: Int(min(M, N)))
+    var s = zeros(Int(min(M, N)))//Vector(repeating: 0.0, count: Int(min(M, N)))
     let U = Matrix(Int(LDU), Int(M))
     let VT = Matrix(Int(LDVT), Int(N))
     
@@ -259,7 +259,7 @@ public func svd(_ A: Matrix) -> (U: Matrix, S: Matrix, V: Matrix) {
     dgesdd_(&jobz, &M, &N, &_A.flat, &LDA, &s, &U.flat, &LDU, &VT.flat, &LDVT, &wkOpt, &lWork, &iWork, &error)
     
     lWork = __CLPK_integer(wkOpt)
-    var work = Vector(repeating: 0.0, count: Int(lWork))
+    var work = zeros(Int(lWork))//Vector(repeating: 0.0, count: Int(lWork))
     
     /* Compute SVD */
     dgesdd_(&jobz, &M, &N, &_A.flat, &LDA, &s, &U.flat, &LDU, &VT.flat, &LDVT, &work, &lWork, &iWork, &error)
@@ -296,7 +296,7 @@ public func gsvd(_ A: Matrix, _ B: Matrix) -> (U: Matrix, V: Matrix, Q: Matrix, 
     
     let lWork = max(max(Int(3*N),Int(M)),Int(P))+Int(N)
     var iWork = [__CLPK_integer](repeating: 0, count: Int(N))
-    var work = Vector(repeating: 0.0, count: Int(lWork) * 4)
+    var work = zeros(Int(lWork) * 4)//Vector(repeating: 0.0, count: Int(lWork) * 4)
     var error = __CLPK_integer(0)
     
     var k = __CLPK_integer()
@@ -305,8 +305,8 @@ public func gsvd(_ A: Matrix, _ B: Matrix) -> (U: Matrix, V: Matrix, Q: Matrix, 
     let U = Matrix(Int(LDU), Int(M))
     let V = Matrix(Int(LDV), Int(P))
     let Q = Matrix(Int(LDQ), Int(N))
-    var alpha = Vector(repeating: 0.0, count: Int(N))
-    var beta = Vector(repeating: 0.0, count: Int(N))
+    var alpha = zeros(Int(N))//Vector(repeating: 0.0, count: Int(N))
+    var beta = zeros(Int(N))//Vector(repeating: 0.0, count: Int(N))
     
     dggsvd_(&jobu, &jobv, &jobq, &M, &N, &P, &k, &l, &_A.flat, &LDA, &_B.flat, &LDB, &alpha, &beta, &U.flat, &LDU, &V.flat, &LDV, &Q.flat, &LDQ, &work, &iWork, &error)
     
