@@ -14,6 +14,8 @@ class PerformanceTests: XCTestCase {
     let b = rand(1000, 1000)
     let x = rand(1000000)
     let y = rand(1000000)
+    let m = rand(40, 40)//Matrix([[1,2,3],[4,5,6],[7,8,9]])
+
     
     func testRandomMatrix() {
         measure {
@@ -85,6 +87,12 @@ class PerformanceTests: XCTestCase {
     func testMaxIndicesByColumns() {
         measure {
             _ = maxi(self.a, .Column)
+        }
+    }
+    
+    func testCalc() {
+        measure {
+            _ = b*b
         }
     }
 }

@@ -20,15 +20,7 @@ public typealias Vector = [Double]
 ///    - count: number of elements
 /// - Returns: zeros vector of specified size
 public func zeros(_ count: Int) -> Vector {
-    if count > 400{
-        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
-            vDSP.clear(&buffer)
-            initializedCount = count
-        })
-    }
-    else{
-        return Vector(repeating: 0.0, count: count)
-    }
+    return Vector(repeating: 0.0, count: count)
 }
 
 /// Create a vector of ones.
@@ -37,15 +29,7 @@ public func zeros(_ count: Int) -> Vector {
 ///    - count: number of elements
 /// - Returns: ones vector of specified size
 public func ones(_ count: Int) -> Vector {
-    if count > 400{
-        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
-            vDSP.fill(&buffer, with: 1)
-            initializedCount = count
-        })
-    }
-    else{
-        return Vector(repeating: 1.0, count: count)
-    }
+    return Vector(repeating: 1.0, count: count)
 }
 
 /// Create a vector of values.
@@ -55,15 +39,7 @@ public func ones(_ count: Int) -> Vector {
 ///    - value: repeating value
 /// - Returns: ones vector of specified size
 public func fill(_ count: Int,value:Double) -> Vector {
-    if count > 400{
-        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
-            vDSP.fill(&buffer, with: value)
-            initializedCount = count
-        })
-    }
-    else{
-        return Vector(repeating: value, count: count)
-    }
+    return Vector(repeating: value, count: count)
 }
 
 /// Create a vector of uniformly distributed on [0, 1) interval random values.
@@ -90,17 +66,9 @@ public func randn(_ count: Int) -> Vector {
     var iSeed = (0..<4).map { _ in __CLPK_integer(Random.within(0.0...4095.0)) }
     var n = __CLPK_integer(count)
     
-    if count > 400{
-        return Vector(unsafeUninitializedCapacity: count, initializingWith: {buffer, initializedCount in
-            dlarnv_(&iDist, &iSeed, &n, buffer.baseAddress!)
-            initializedCount = count
-        })
-    }
-    else{
-        var x = Vector(repeating: 0.0, count: count)
-        dlarnv_(&iDist, &iSeed, &n, &x)
-        return x
-    }
+    var x = Vector(repeating: 0.0, count: count)
+    dlarnv_(&iDist, &iSeed, &n, &x)
+    return x
 }
 
 // MARK: - Vector comparison

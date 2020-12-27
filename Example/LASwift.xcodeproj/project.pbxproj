@@ -61,6 +61,7 @@
 		36EF117C21E9704600B11E01 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EF117B21E9704600B11E01 /* Foundation.framework */; };
 		36EF117D21E9704D00B11E01 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3611B64221E96E08004E0EF8 /* Accelerate.framework */; };
 		36EF117F21E9705600B11E01 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EF117E21E9705600B11E01 /* Foundation.framework */; };
+		8A5BCDF3E14EF0014F1C0C31 /* Pods_LASwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1CD6042258D4EE0073C207 /* Pods_LASwift_Tests.framework */; };
 		B1EC68B8EA0F226DEEFAE493 /* Pods_LASwift_watchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EF3DBBB6EE48D4BEE9D991 /* Pods_LASwift_watchOS.framework */; };
 		FA4AC4081E5E3EF000D5F51F /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4AC4071E5E3EF000D5F51F /* VectorTests.swift */; };
 		FA4AC40E1E6614EC00D5F51F /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4AC40D1E6614EC00D5F51F /* MatrixTests.swift */; };
@@ -201,6 +202,7 @@
 			files = (
 				FB1CD6082258D5150073C207 /* LASwift.framework in Frameworks */,
 				FB1CD5FC2258D0DF0073C207 /* Pods_LASwift_Tests.framework in Frameworks */,
+				8A5BCDF3E14EF0014F1C0C31 /* Pods_LASwift_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,7 +817,7 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -854,7 +856,7 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1055,7 +1057,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.LASwift-macOS";
@@ -1096,7 +1098,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.LASwift-macOS";
 				PRODUCT_NAME = LASwift;
@@ -1154,7 +1156,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1202,7 +1205,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
