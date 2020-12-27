@@ -17,7 +17,7 @@ import Accelerate
 ///    - cols: number of columns
 /// - Returns: zeros matrix of specified size
 public func zeros(_ rows: Int, _ cols: Int) -> Matrix {
-    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
+//    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix(rows, cols, 0.0)
 }
 
@@ -28,7 +28,7 @@ public func zeros(_ rows: Int, _ cols: Int) -> Matrix {
 ///    - cols: number of columns
 /// - Returns: ones matrix of specified size
 public func ones(_ rows: Int, _ cols: Int) -> Matrix {
-    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
+//    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix(rows, cols, 1.0)
 }
 
@@ -39,7 +39,7 @@ public func ones(_ rows: Int, _ cols: Int) -> Matrix {
 ///    - cols: number of columns
 /// - Returns: random values matrix of specified size
 public func rand(_ rows: Int, _ cols: Int) -> Matrix {
-    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
+//    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix(rows, cols, rand(rows * cols))
 }
 
@@ -50,7 +50,7 @@ public func rand(_ rows: Int, _ cols: Int) -> Matrix {
 ///    - cols: number of columns
 /// - Returns: random values matrix of specified size
 public func randn(_ rows: Int, _ cols: Int) -> Matrix {
-    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
+//    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix(rows, cols, randn(rows * cols))
 }
 
@@ -61,7 +61,7 @@ public func randn(_ rows: Int, _ cols: Int) -> Matrix {
 ///    - cols: number of columns
 /// - Returns: identity matrix of specified size
 public func eye(_ rows: Int, _ cols: Int) -> Matrix {
-    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
+//    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix((0..<rows).map { (i: Int) -> Vector in
         var row = zeros(cols)//Vector(repeating: 0.0, count: cols)
         if (i < cols) {
@@ -77,7 +77,7 @@ public func eye(_ rows: Int, _ cols: Int) -> Matrix {
 ///    - v: matrix of values with one column
 /// - Returns: square diagonal matrix with specified values
 public func diag(_ v: Matrix) -> Matrix {
-    precondition(v.cols == 1, "Input must be a vector")
+//    precondition(v.cols == 1, "Input must be a vector")
     return diag(v.flat)
 }
 
@@ -101,7 +101,7 @@ public func diag(_ v: Vector) -> Matrix {
 ///    - v: matrix of values with one column
 /// - Returns: diagonal matrix with specified values and size
 public func diag(_ rows: Int, _ cols: Int, _ v: Matrix) -> Matrix {
-    precondition(v.cols == 1, "Input must be a vector")
+//    precondition(v.cols == 1, "Input must be a vector")
     return diag(rows, cols, v.flat)
 }
 
@@ -113,7 +113,7 @@ public func diag(_ rows: Int, _ cols: Int, _ v: Matrix) -> Matrix {
 ///    - v: vector of values
 /// - Returns: diagonal matrix with specified values and size
 public func diag(_ rows: Int, _ cols: Int, _ v: Vector) -> Matrix {
-    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
+//    precondition(rows > 0 && cols > 0, "Matrix dimensions must be positive")
     return Matrix((0..<rows).map { (i: Int) -> Vector in
         var row = zeros(cols)//Vector(repeating: 0.0, count: cols)
         if (i < cols) {
@@ -151,14 +151,14 @@ public class Matrix {
     }
     
     public init(_ r: Int, _ c: Int, _ value: Double = 0.0) {
-        precondition(r > 0 && c > 0, "Matrix dimensions must be positive")
+//        precondition(r > 0 && c > 0, "Matrix dimensions must be positive")
         flat = fill(r * c, value: value)//Vector(repeating: value, count: r * c)
         _rows = r
         _cols = c
     }
     
     public init(_ r: Int, _ c: Int, _ f: Vector) {
-        precondition(r * c == f.count, "Matrix dimensions must agree")
+//        precondition(r * c == f.count, "Matrix dimensions must agree")
         flat = f
         _rows = r
         _cols = c
@@ -181,10 +181,10 @@ public class Matrix {
     /// Create Matrix from array of Vectors (two-dimensional array)
     public init(_ data: [Vector]) {
         // assuming empty input as invalid
-        precondition(data.count > 0, "Input must not be empty")
-        precondition(data[0].count > 0, "Input must not be empty")
+//        precondition(data.count > 0, "Input must not be empty")
+//        precondition(data[0].count > 0, "Input must not be empty")
         // check if all subarrays have same length
-        precondition(Set(data.map { $0.count }).count == 1, "Input dimensions must agree")
+//        precondition(Set(data.map { $0.count }).count == 1, "Input dimensions must agree")
         
         flat = data.flatMap { $0 }
         _rows = data.count
@@ -202,12 +202,12 @@ extension Matrix {
     ///    - col: col position of element (0-based)
     public subscript(_ row: Int, _ col: Int ) -> Double {
         get {
-            precondition(indexIsValidForRow(row, col), "Invalid index")
+//            precondition(indexIsValidForRow(row, col), "Invalid index")
             return flat[(row * cols) + col]
         }
         
         set {
-            precondition(indexIsValidForRow(row, col), "Invalid index")
+//            precondition(indexIsValidForRow(row, col), "Invalid index")
             flat[(row * cols) + col] = newValue
         }
     }
@@ -218,12 +218,12 @@ extension Matrix {
     ///    - index: index of element (0-based, 0 <= index < M.rows * M.cols)
     public subscript(_ index: Int) -> Double {
         get {
-            precondition(index < rows * cols, "Invalid index")
+//            precondition(index < rows * cols, "Invalid index")
             return flat[index]
         }
         
         set {
-            precondition(index < rows * cols, "Invalid index")
+//            precondition(index < rows * cols, "Invalid index")
             flat[index] = newValue
         }
     }
@@ -234,15 +234,15 @@ extension Matrix {
     ///    - row: row index (0-based)
     public subscript(row row: Int) -> Vector {
         get {
-            precondition(row < rows, "Invalid index")
+//            precondition(row < rows, "Invalid index")
             let startIndex = row * cols
             let endIndex = row * cols + cols
             return Array(flat[startIndex..<endIndex])
         }
         
         set {
-            precondition(row < rows, "Invalid index")
-            precondition(newValue.count == cols, "Input dimensions must agree")
+//            precondition(row < rows, "Invalid index")
+//            precondition(newValue.count == cols, "Input dimensions must agree")
             let startIndex = row * cols
             let endIndex = row * cols + cols
             flat.replaceSubrange(startIndex..<endIndex, with: newValue)
@@ -255,7 +255,7 @@ extension Matrix {
     ///    - col: column index (0-based)
     public subscript(col col: Int) -> Vector {
         get {
-            precondition(col < cols, "Invalid index")
+//            precondition(col < cols, "Invalid index")
             var result = zeros(rows)//Vector(repeating: 0.0, count: rows)
             _ = (0..<rows).map { i -> () in
                 let index = i * cols + col
@@ -265,8 +265,8 @@ extension Matrix {
         }
         
         set {
-            precondition(col < cols, "Invalid index")
-            precondition(newValue.count == rows, "Input dimensions must agree")
+//            precondition(col < cols, "Invalid index")
+//            precondition(newValue.count == rows, "Input dimensions must agree")
             _ = (0..<rows).map { i -> () in
                 let index = i * cols + col
                 flat[index] = newValue[i]
@@ -368,8 +368,8 @@ extension Matrix {
 
     public subscript(_ row: ClosedRange<Int>, _ col: ClosedRange<Int>) -> Matrix {
         get {
-            precondition(indexIsValidForRow(row.lowerBound, col.lowerBound), "Invalid range")
-            precondition(indexIsValidForRow(row.upperBound, col.upperBound), "Invalid range")
+//            precondition(indexIsValidForRow(row.lowerBound, col.lowerBound), "Invalid range")
+//            precondition(indexIsValidForRow(row.upperBound, col.upperBound), "Invalid range")
 
             let dst = Matrix(row.count, col.count)
 
@@ -384,9 +384,9 @@ extension Matrix {
         }
 
         set {
-            precondition(indexIsValidForRow(row.lowerBound, col.lowerBound), "Invalid range")
-            precondition(indexIsValidForRow(row.upperBound, col.upperBound), "Invalid range")
-            precondition(newValue.cols == col.count && newValue.rows == row.count, "Matrix dimensions must agree")
+//            precondition(indexIsValidForRow(row.lowerBound, col.lowerBound), "Invalid range")
+//            precondition(indexIsValidForRow(row.upperBound, col.upperBound), "Invalid range")
+//            precondition(newValue.cols == col.count && newValue.rows == row.count, "Matrix dimensions must agree")
 
             flat.withUnsafeMutableBufferPointer { dstBuf in
                 let dstPtr = dstBuf.baseAddress! + row.lowerBound * rows + col.lowerBound
@@ -452,8 +452,8 @@ public func insert(_ m: Matrix, row: Vector, at index: Int) -> Matrix {
 ///    - at: index to insert rows to
 /// - Returns: new matrix with inserted rows
 public func insert(_ m: Matrix, rows: Matrix, at index: Int) -> Matrix {
-    precondition(rows.cols == m.cols, "Input dimensions must agree")
-    precondition(index <= m.rows, "Index out of bounds")
+//    precondition(rows.cols == m.cols, "Input dimensions must agree")
+//    precondition(index <= m.rows, "Index out of bounds")
     
     let res = zeros(m.rows + rows.rows, m.cols)
     
@@ -480,7 +480,7 @@ public func insert(_ m: Matrix, rows: Matrix, at index: Int) -> Matrix {
 ///    - row: row values to append represented as row matrix
 /// - Returns: new matrix with appended row
 public func append(_ m: Matrix, row: Matrix) -> Matrix {
-    precondition(row.cols == m.cols && row.rows == 1, "Input dimensions must agree")
+//    precondition(row.cols == m.cols && row.rows == 1, "Input dimensions must agree")
     return insert(m, row: row.flat, at: m.rows)
 }
 
@@ -563,7 +563,7 @@ public func === (_ m: Matrix, _ row: Vector) -> Matrix {
 ///    - row: row values to prepend represented as row matrix
 /// - Returns: new matrix with prepended row
 public func prepend(_ m: Matrix, row: Matrix) -> Matrix {
-    precondition(row.cols == m.cols && row.rows == 1, "Input dimensions must agree")
+//    precondition(row.cols == m.cols && row.rows == 1, "Input dimensions must agree")
     return insert(m, row: row.flat, at: 0)
 }
 
@@ -666,8 +666,8 @@ public func insert(_ m: Matrix, col: Vector, at index: Int) -> Matrix {
 ///    - at: index to insert columns to
 /// - Returns: new matrix with inserted columns
 public func insert(_ m: Matrix, cols: Matrix, at index: Int) -> Matrix {
-    precondition(cols.rows == m.rows, "Input dimensions must agree")
-    precondition(index <= m.cols && index >= 0, "Index out of bounds")
+//    precondition(cols.rows == m.rows, "Input dimensions must agree")
+//    precondition(index <= m.cols && index >= 0, "Index out of bounds")
     
     let res = zeros(m.rows, m.cols + cols.cols)
     
@@ -694,7 +694,7 @@ public func insert(_ m: Matrix, cols: Matrix, at index: Int) -> Matrix {
 ///    - col: column values to append represented as column matrix
 /// - Returns: new matrix with appended column
 public func append(_ m: Matrix, col: Matrix) -> Matrix {
-    precondition(col.rows == m.rows && col.cols == 1, "Input dimensions must agree")
+//    precondition(col.rows == m.rows && col.cols == 1, "Input dimensions must agree")
     return insert(m, col: col.flat, at: m.cols)
 }
 
@@ -777,7 +777,7 @@ public func ||| (_ m: Matrix, _ col: Vector) -> Matrix {
 ///    - col: column values to prepend represented as column matrix
 /// - Returns: new matrix with prepended column
 public func prepend(_ m: Matrix, col: Matrix) -> Matrix {
-    precondition(col.rows == m.rows && col.cols == 1, "Input dimensions must agree")
+//    precondition(col.rows == m.rows && col.cols == 1, "Input dimensions must agree")
     return insert(m, col: col.flat, at: 0)
 }
 
@@ -903,13 +903,13 @@ public func slice(_ m: Matrix, _ e: (er: Extractor, ec: Extractor)) -> Matrix {
          (_, .Range(let f, _, let t)) where f < 0 || t >= m.cols,
          (.Range(let f, _, let t), _) where f >= m.rows || t < 0,
          (_, .Range(let f, _, let t)) where f >= m.cols || t < 0:
-        preconditionFailure("Range out of bounds")
+//        preconditionFailure("Range out of bounds")
         
     case (.Take(let n), _) where n < 0 || n >= m.rows,
          (_, .Take(let n)) where n < 0 || n >= m.cols,
          (.Drop(let n), _) where n < 0 || n >= m.rows,
          (_, .Drop(let n)) where n < 0 || n >= m.cols:
-        preconditionFailure("Range out of bounds")
+//        preconditionFailure("Range out of bounds")
         
     case (.All, _):
         return slice(m, (.Pos([Int](0..<m.rows)), e.ec))
@@ -947,12 +947,12 @@ public func slice(_ m: Matrix, _ e: (er: Extractor, ec: Extractor)) -> Matrix {
         return slice(m, (e.er, .Pos([Int](n..<m.cols))))
         
     case (.Pos(let pr), .Pos(let pc)):
-        precondition(pr.count > 0 && pr.filter { $0 < 0 || $0 > m.rows }.count == 0, "Range out of bounds")
-        precondition(pc.count > 0 && pc.filter { $0 < 0 || $0 > m.cols }.count == 0, "Range out of bounds")
+//        precondition(pr.count > 0 && pr.filter { $0 < 0 || $0 > m.rows }.count == 0, "Range out of bounds")
+//        precondition(pc.count > 0 && pc.filter { $0 < 0 || $0 > m.cols }.count == 0, "Range out of bounds")
         return slice(m, pr, pc)
         
     default:
-        preconditionFailure("Invalid range")
+//        preconditionFailure("Invalid range")
     }
 }
 

@@ -25,7 +25,7 @@ public enum Triangle {
 ///     - A: matrix to compute trace of
 /// - Returns: sum of the elements on the main diagonal
 public func trace(_ A: Matrix) -> Double {
-    precondition(A.rows == A.cols, "Matrix dimensions must agree")
+//    precondition(A.rows == A.cols, "Matrix dimensions must agree")
     return sum((0..<A.rows).map { A[$0, $0] })
 }
 
@@ -62,7 +62,7 @@ public postfix func ′ (_ a: Matrix) -> Matrix {
 ///     - B: right matrix
 /// - Returns: matrix product of A and B
 public func mtimes(_ A: Matrix, _ B: Matrix) -> Matrix {
-    precondition(A.cols == B.rows, "Matrix dimensions must agree")
+//    precondition(A.cols == B.rows, "Matrix dimensions must agree")
     let C: Matrix = zeros(A.rows, B.cols)
     vDSP_mmulD(A.flat, 1, B.flat, 1, &(C.flat), 1, vDSP_Length(A.rows), vDSP_Length(B.cols), vDSP_Length(A.cols))
     return C
@@ -95,7 +95,7 @@ public func * (_ A: Matrix, _ B: Matrix) -> Matrix {
 ///     - p: power to raise matrix to (integer)
 /// - Returns: matrix A raised to power p
 public func mpower(_ A: Matrix, _ p: Int) -> Matrix {
-    precondition(A.cols == A.rows, "Matrix dimensions must agree")
+//    precondition(A.cols == A.rows, "Matrix dimensions must agree")
     switch p {
     case 1:
         return Matrix(A)
@@ -142,7 +142,7 @@ public func ^ (_ a: Matrix, _ p: Int) -> Matrix {
 ///     - A: square matrix to invert
 /// - Returns: inverse of A matrix
 public func inv(_ A: Matrix) -> Matrix {
-    precondition(A.rows == A.cols, "Matrix dimensions must agree")
+//    precondition(A.rows == A.cols, "Matrix dimensions must agree")
     let B = Matrix(A)
     
     var M = __CLPK_integer(A.rows)
@@ -157,7 +157,7 @@ public func inv(_ A: Matrix) -> Matrix {
     
     dgetrf_(&M, &N, &(B.flat), &LDA, &pivot, &error)
     
-    precondition(error == 0, "Matrix is non invertible")
+//    precondition(error == 0, "Matrix is non invertible")
     
     /* Query and allocate the optimal workspace */
     
@@ -170,7 +170,7 @@ public func inv(_ A: Matrix) -> Matrix {
     
     dgetri_(&N, &(B.flat), &LDA, &pivot, &work, &lWork, &error)
     
-    precondition(error == 0, "Matrix is non invertible")
+//    precondition(error == 0, "Matrix is non invertible")
     
     return B
 }
@@ -183,7 +183,7 @@ public func inv(_ A: Matrix) -> Matrix {
 ///     - A: square matrix to calculate eigen values and vectors of
 /// - Returns: eigenvectors matrix (by rows) and diagonal matrix with eigenvalues on the main diagonal
 public func eig(_ A: Matrix) -> (V: Matrix, D: Matrix) {
-    precondition(A.rows == A.cols, "Matrix dimensions must agree")
+//    precondition(A.rows == A.cols, "Matrix dimensions must agree")
     
     let V = Matrix(A)
     
@@ -222,7 +222,7 @@ public func eig(_ A: Matrix) -> (V: Matrix, D: Matrix) {
     
     dgeev_(&jobvl, &jobvr, &N, &V.flat, &LDA, &wr, &wi, &vl, &ldvl, &vr, &ldvr, &work, &lWork, &error)
     
-    precondition(error == 0, "Failed to compute eigen vectors")
+//    precondition(error == 0, "Failed to compute eigen vectors")
     
     return (toRows(Matrix(A.rows, A.cols, vl), .Column), diag(wr))
 }
@@ -264,7 +264,7 @@ public func svd(_ A: Matrix) -> (U: Matrix, S: Matrix, V: Matrix) {
     /* Compute SVD */
     dgesdd_(&jobz, &M, &N, &_A.flat, &LDA, &s, &U.flat, &LDU, &VT.flat, &LDVT, &work, &lWork, &iWork, &error)
     
-    precondition(error == 0, "Failed to compute SVD")
+//    precondition(error == 0, "Failed to compute SVD")
     
     return (toRows(U, .Column), diag(Int(M), Int(N), s), VT)
 }
@@ -328,7 +328,7 @@ public func gsvd(_ A: Matrix, _ B: Matrix) -> (U: Matrix, V: Matrix, Q: Matrix, 
 /// - Returns: upper triangular matrix U so that `A = U' * U` or 
 ///            lower triangular matrix L so that `A = L * L'`
 public func chol(_ A: Matrix, _ t: Triangle = .Upper) -> Matrix {
-    precondition(A.rows == A.cols, "Matrix dimensions must agree")
+//    precondition(A.rows == A.cols, "Matrix dimensions must agree")
     
     var uplo: Int8
     switch t {
@@ -351,7 +351,7 @@ public func chol(_ A: Matrix, _ t: Triangle = .Upper) -> Matrix {
     
     dpotrf_(&uplo, &N, &U.flat, &LDA, &error)
     
-    precondition(error == 0, "Failed to compute Cholesky decomposition")
+//    precondition(error == 0, "Failed to compute Cholesky decomposition")
     
     U = toRows(U, .Column)
     
