@@ -903,12 +903,14 @@ public func slice(_ m: Matrix, _ e: (er: Extractor, ec: Extractor)) -> Matrix {
          (_, .Range(let f, _, let t)) where f < 0 || t >= m.cols,
          (.Range(let f, _, let t), _) where f >= m.rows || t < 0,
          (_, .Range(let f, _, let t)) where f >= m.cols || t < 0:
+        fatalError()
 //        preconditionFailure("Range out of bounds")
         
     case (.Take(let n), _) where n < 0 || n >= m.rows,
          (_, .Take(let n)) where n < 0 || n >= m.cols,
          (.Drop(let n), _) where n < 0 || n >= m.rows,
          (_, .Drop(let n)) where n < 0 || n >= m.cols:
+        fatalError()
 //        preconditionFailure("Range out of bounds")
         
     case (.All, _):
@@ -952,7 +954,9 @@ public func slice(_ m: Matrix, _ e: (er: Extractor, ec: Extractor)) -> Matrix {
         return slice(m, pr, pc)
         
     default:
+        fatalError()
 //        preconditionFailure("Invalid range")
+    break
     }
 }
 
