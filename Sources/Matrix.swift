@@ -463,7 +463,7 @@ public func insert(_ m: Matrix, rows: Matrix, at index: Int) -> Matrix {
     
     vDSP_mmovD(rows.flat, &res.flat[index * res.cols], vDSP_Length(m.cols), vDSP_Length(rows.rows), vDSP_Length(m.cols), vDSP_Length(res.cols))
     
-    if (index+rows.rows < m.rows) {
+    if (index < m.rows) {
         m.flat.withUnsafeBufferPointer { bufPtr in
             let p = bufPtr.baseAddress! + index * m.cols
             vDSP_mmovD(p, &res.flat[(index + rows.rows) * res.cols], vDSP_Length(m.cols), vDSP_Length(m.rows - index), vDSP_Length(m.cols), vDSP_Length(res.cols))
@@ -677,7 +677,7 @@ public func insert(_ m: Matrix, cols: Matrix, at index: Int) -> Matrix {
     
     vDSP_mmovD(cols.flat, &res.flat[index], vDSP_Length(cols.cols), vDSP_Length(m.rows), vDSP_Length(cols.cols), vDSP_Length(res.cols))
     
-    if (index+cols._cols < m.cols) {
+    if (index < m.cols) {
         m.flat.withUnsafeBufferPointer { bufPtr in
             let p = bufPtr.baseAddress! + index
             vDSP_mmovD(p, &res.flat[index + cols.cols], vDSP_Length(m.cols - index), vDSP_Length(m.rows), vDSP_Length(m.cols), vDSP_Length(res.cols))
