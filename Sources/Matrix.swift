@@ -452,8 +452,8 @@ public func insert(_ m: Matrix, row: Vector, at index: Int) -> Matrix {
 ///    - at: index to insert rows to
 /// - Returns: new matrix with inserted rows
 public func insert(_ m: Matrix, rows: Matrix, at index: Int) -> Matrix {
-//    precondition(rows.cols == m.cols, "Input dimensions must agree")
-//    precondition(index <= m.rows, "Index out of bounds")
+    precondition(rows.cols == m.cols, "Input dimensions must agree")
+    precondition(index <= m.rows, "Index out of bounds")
     
     let res = zeros(m.rows + rows.rows, m.cols)
     
@@ -666,8 +666,8 @@ public func insert(_ m: Matrix, col: Vector, at index: Int) -> Matrix {
 ///    - at: index to insert columns to
 /// - Returns: new matrix with inserted columns
 public func insert(_ m: Matrix, cols: Matrix, at index: Int) -> Matrix {
-//    precondition(cols.rows == m.rows, "Input dimensions must agree")
-//    precondition(index <= m.cols && index >= 0, "Index out of bounds")
+    precondition(cols.rows == m.rows, "Input dimensions must agree")
+    precondition(index <= m.cols && index >= 0, "Index out of bounds")
     
     let res = zeros(m.rows, m.cols + cols.cols)
     
